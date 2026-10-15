@@ -15,7 +15,7 @@
 //#include "version.h"
 
 // bsp
-//#include "key.h"
+#include "key.h"
 #include "lcd.h"
 #include "lcd_init.h"
 //#include "CST816.h"
@@ -75,6 +75,7 @@ void HardwareInitTask(void *argument)
     lcd_test_stage = 3;
 
     LCD_Init();
+	Key_Port_Init();
     lcd_test_stage = 4;
 
     LCD_Fill(0, 0, LCD_W, LCD_H, BLUE);

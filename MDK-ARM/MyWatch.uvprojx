@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F411xE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../BSP;../SYSTEM;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../BSP/LCD;../User/Tasks/Inc</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../BSP;../SYSTEM;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../BSP/LCD;../User/Tasks/Inc;..\BSP\KEY</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -835,14 +835,14 @@
               <FilePath>..\BSP\LCD\lcd.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\BSP\LCD\lcd.h</FilePath>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\KEY\key.c</FilePath>
             </File>
             <File>
-              <FileName>lcdfont.h</FileName>
+              <FileName>key.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\BSP\LCD\lcdfont.h</FilePath>
+              <FilePath>..\BSP\KEY\key.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1522,6 +1522,26 @@
               <FileName>user_TasksInit.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\User\Tasks\Inc\user_TasksInit.h</FilePath>
+            </File>
+            <File>
+              <FileName>user_KeyTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Tasks\Src\user_KeyTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_KeyTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\User\Tasks\Inc\user_KeyTask.h</FilePath>
+            </File>
+            <File>
+              <FileName>user_DisplayTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Tasks\Src\user_DisplayTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_DisplayTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\User\Tasks\Inc\user_DisplayTask.h</FilePath>
             </File>
           </Files>
         </Group>

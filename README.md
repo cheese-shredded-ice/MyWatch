@@ -9,6 +9,36 @@
 | 任务 | 日期 | 内容 | 状态 |
 | --- | --- | --- | --- |
 | 01 | 2026-10-15 | 创建 LCD 显示任务 | 已完成：实物显示 Hello |
+| 02 | 2026-10-15 | 按下 Key1 屏幕显示 Key1 | 已完成：Key1 可显示 |
+
+## 任务 02：按下 Key1 屏幕显示 Key1
+
+### 目标和结果
+
+按下并松开 Key1 后，让屏幕显示 `KEY1`。这是在任务 01 的 LCD 显示基础上，第一次把按键任务、消息队列和显示任务连接起来。
+
+### 实现流程
+
+```text
+KeyTask 周期调用 KeyScan()
+  → Key1 按下并松开后返回 1
+  → KeyTask 将 1 放入 Key_MessageQueue
+  → DisplayTask 阻塞等待队列消息
+  → 收到 1 后清理显示区域并显示 KEY1
+```
+
+按键任务和显示任务通过 `Key_MessageQueue` 通信，显示任务不直接读取 GPIO。当前验证范围是 Key1；Key2 的电平和按键释放判断还需要继续排查，暂不计入本任务完成条件。
+
+### 关键代码
+
+- [按键 GPIO 和扫描](BSP/KEY/key.c)：Key1 使用低电平有效，`KeyScan()` 在按键释放后返回 `1`。
+- [按键任务](User/Tasks/Src/user_KeyTask.c)：收到 `1` 后向 `Key_MessageQueue` 发送按键值。
+- [显示任务](User/Tasks/Src/user_DisplayTask.c)：等待队列并显示 `KEY1`。
+- [任务和队列创建](User/Tasks/Src/user_TasksInit.c)：创建 `Key_MessageQueue`、`KeyTask` 和 `DisplayTask`。
+
+### 验证方式
+
+需要完整执行一次“按下并松开 Key1”，因为 `KeyScan()` 在松开确认后才返回按键值。实物验证结果为屏幕能够显示 `KEY1`。
 
 ## 任务 01：创建 LCD 显示任务
 

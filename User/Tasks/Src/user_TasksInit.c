@@ -13,7 +13,8 @@
 //tasks
 #include "user_HardwareInitTask.h"
 //#include "user_RunModeTasks.h"
-//#include "user_KeyTask.h"
+#include "user_KeyTask.h"
+#include "user_DisplayTask.h"
 //#include "user_ScrRenewTask.h"
 //#include "user_SensUpdateTask.h"
 //#include "user_ChargCheckTask.h"
@@ -38,8 +39,25 @@ const osThreadAttr_t HardwareInitTask_attributes = {
   .priority = (osPriority_t) osPriorityHigh3,
 };
 
+//Key task
+osThreadId_t KeyTaskHandle;
+const osThreadAttr_t KeyTask_attributes = {
+  .name = "KeyTask",
+  .stack_size = 128 * 1,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
+//Display task
+osThreadId_t DisplayTaskHandle;
+const osThreadAttr_t DisplayTask_attributes = {
+    .name = "DisplayTask",
+    .stack_size = 128 * 2,
+    .priority = (osPriority_t)osPriorityNormal1,
+};
+
 /* Message queues ------------------------------------------------------------*/
 osEventFlagsId_t HardIntEventHandle;
+osMessageQueueId_t Key_MessageQueue;
 
 /**
   * @brief  FreeRTOS initialization
@@ -56,13 +74,16 @@ void User_Tasks_Init(void)
 
 	/* add queues, ... */
 	HardIntEventHandle = osEventFlagsNew(NULL);
+	Key_MessageQueue = osMessageQueueNew(4, sizeof(uint8_t), NULL);
     if (HardIntEventHandle == NULL)
     {
         Error_Handler();
     }
 	
 	/* add threads, ... */
-	HardwareInitTaskHandle  = osThreadNew(HardwareInitTask, NULL, &HardwareInitTask_attributes);
+	HardwareInitTaskHandle  = 	osThreadNew(HardwareInitTask, NULL, &HardwareInitTask_attributes);
+	KeyTaskHandle 			= 	osThreadNew(KeyTask, NULL, &KeyTask_attributes);
+	DisplayTaskHandle		=	osThreadNew(DisplayTask, NULL, &DisplayTask_attributes);
     if (HardwareInitTaskHandle == NULL)
     {
         Error_Handler();

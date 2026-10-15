@@ -14,6 +14,7 @@ extern "C" {
 #define HARDINT_EVENT_MPU   (1U << 2)
 
 extern osEventFlagsId_t HardIntEventHandle;
+extern osMessageQueueId_t Key_MessageQueue;
 
 void User_Tasks_Init(void);
 
